@@ -13,20 +13,18 @@ var personaIcon = L.icon({
 
 var lat = 0;
 var lng = 0;
+var marker = L.marker([this.lat, this.lng], { icon: personaIcon })
 
 function getLocation() {
   function success (data) {
     this.lat = data.coords.latitude;
     this.lng = data.coords.longitude;
-    var marker = L.marker([this.lat, this.lng], { icon: personaIcon }).addTo(mymap);
+    this.marker = L.marker([this.lat, this.lng], { icon: personaIcon }).addTo(mymap);
   }
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(success, console.error);
   }
 }
-
-
-
 mymap.on('click', function(e) {
   console.log(e);
   var newMarker = L.marker([e.latlng.lat, e.latlng.lng]).addTo(mymap);
@@ -37,9 +35,9 @@ mymap.on('click', function(e) {
     ],
     router: L.Routing.mapbox('pk.eyJ1IjoicGFsb21hbnIiLCJhIjoiY2xlZzJhdmJ1MHd1MTNwbWpnamo3NDAwMyJ9.Cx4hZdymPRAoUl_siH3I-w')
   }).on('routesfound', function (e) {
+    console.log("hola");
     var routes = e.routes;
     console.log(routes);
-
     e.routes[0].coordinates.forEach(function (coord, index) {
       setTimeout(function () {
         marker.setLatLng([coord.lat, coord.lng]);
@@ -47,7 +45,6 @@ mymap.on('click', function(e) {
     })
 
   }).addTo(mymap);
-
 })
 
 
