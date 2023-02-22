@@ -5,7 +5,60 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   maxZoom: 18
 }).addTo(mymap);
 
+
+var personaIcon = L.icon({
+  iconUrl: 'imagenes/persona.png',
+  iconSize: [70, 70]
+})
+
+var lat = 0;
+var lng = 0;
+
+function getLocation() {
+  function success (data) {
+    this.lat = data.coords.latitude;
+    this.lng = data.coords.longitude;
+    var marker = L.marker([this.lat, this.lng], { icon: personaIcon }).addTo(mymap);
+  }
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(success, console.error);
+  }
+}
+
+
+
 mymap.on('click', function(e) {
   console.log(e);
+  var newMarker = L.marker([e.latlng.lat, e.latlng.lng]).addTo(mymap);
+  L.Routing.control({
+    waypoints: [
+      L.latLng(this.lat, this.lng),
+      L.latLng(e.latlng.lat, e.latlng.lng)
+    ],
+    router: L.Routing.osrmv1({
+      serviceUrl: 'http://my-osrm/route/v1'
+  })
+  }).on('routesfound', function (e) {
+    var routes = e.routes;
+    console.log(routes);
+
+    e.routes[0].coordinates.forEach(function (coord, index) {
+      setTimeout(function () {
+        marker.setLatLng([coord.lat, coord.lng]);
+      }, 100 * index)
+    })
+
+  }).addTo(mymap);
 
 })
+
+
+
+
+
+
+
+
+
+
+

@@ -7,3 +7,17 @@ body {
     height: 100%;
   }
   
+  #inicio {
+    position: absolute;
+    top: 550px;
+    right: 20px;
+    padding: 10px;
+    z-index: 400;
+  }
+  #fin {
+    position: absolute;
+    top: 600px;
+    right: 20px;
+    padding: 10px;
+    z-index: 400;
+  }
