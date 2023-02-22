@@ -35,9 +35,7 @@ mymap.on('click', function(e) {
       L.latLng(this.lat, this.lng),
       L.latLng(e.latlng.lat, e.latlng.lng)
     ],
-    router: L.Routing.osrmv1({
-      serviceUrl: 'http://my-osrm/route/v1'
-  })
+    router: L.Routing.mapbox('pk.eyJ1IjoicGFsb21hbnIiLCJhIjoiY2xlZzJhdmJ1MHd1MTNwbWpnamo3NDAwMyJ9.Cx4hZdymPRAoUl_siH3I-w')
   }).on('routesfound', function (e) {
     var routes = e.routes;
     console.log(routes);
