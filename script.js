@@ -4,4 +4,3 @@ function clickinner(target) { // Target refers to the clicked element
 function clicksabermas(target) {
     location.href='saber_mas.html';
 };
-      

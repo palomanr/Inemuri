@@ -13,6 +13,7 @@ var personaIcon = L.icon({
 
 var lat = 0;
 var lng = 0;
+var target = 0;
 var marker = L.marker([this.lat, this.lng], { icon: personaIcon })
 
 function getLocation() {
@@ -28,24 +29,41 @@ function getLocation() {
 mymap.on('click', function(e) {
   console.log(e);
   var newMarker = L.marker([e.latlng.lat, e.latlng.lng]).addTo(mymap);
+  target = e.latlng;
   L.Routing.control({
     waypoints: [
       L.latLng(this.lat, this.lng),
       L.latLng(e.latlng.lat, e.latlng.lng)
     ],
     router: L.Routing.mapbox('pk.eyJ1IjoicGFsb21hbnIiLCJhIjoiY2xlZzJhdmJ1MHd1MTNwbWpnamo3NDAwMyJ9.Cx4hZdymPRAoUl_siH3I-w')
-  }).on('routesfound', function (e) {
-    console.log("hola");
-    var routes = e.routes;
-    console.log(routes);
-    e.routes[0].coordinates.forEach(function (coord, index) {
-      setTimeout(function () {
-        marker.setLatLng([coord.lat, coord.lng]);
-      }, 100 * index)
-    })
-
-  }).addTo(mymap);
+  });
 })
+
+
+function comienzaRuta() {
+  function success (position) {
+    const p = document.querySelector("#geoloc");
+    const watchID = navigator.geolocation.watchPosition((position) => {
+        p.innerHTML = `${position.coords.latitude}, ${position.coords.longitude}`;
+    });
+    var distancia_lat_cerca = (this.target.lat - lat)/3;
+    var distancia_long_cerca = (this.target.lng - lng)/3;
+    var crd = position.coords;
+    if (distancia_lat_cerca === crd.latitude && distancia_long_cerca === crd.longitude) {
+      while ( this.target.lat != crd.latitude && this.target.lng != crd.longitude) {
+        window.navigator.vibrate([200, 100, 200]);
+      }
+      navigator.geolocation.clearWatch(watchID);
+    }
+  }
+  if (navigator.geolocation) {
+    navigator.geolocation.watchPosition(success, console.error);
+  }
+}
+
+
+
+
 
 
 
