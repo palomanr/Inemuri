@@ -20,9 +20,11 @@
   <div id="sample_map"></div>
   <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
   <script src="no_inicia_sesion.js"></script>
-  <button onclick="getLocation()" id="inicio">Pincha aquí para tener la posicion inicial</button>
-  <button id="fin">Pincha en el mapa tu lugar de destino</button>
-  <button onclick="comienzaRuta()" id="comienza">Pincha aquí para seguir tu ruta</button>
+  <div class="btn-group">
+    <button onclick="getLocation()" id="inicio" class="button">Pincha aquí para tener la posicion inicial</button>
+    <button id="fin" class="button">Pincha en el mapa tu lugar de destino</button>
+    <button id="comienza" onclick="comienzaRuta()" class="button">Pincha aquí para seguir tu ruta</button>
+  </div>
 </body>
 
 </html>

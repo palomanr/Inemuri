@@ -41,24 +41,17 @@ mymap.on('click', function(e) {
 
 
 function comienzaRuta() {
-  function success (position) {
-    const p = document.querySelector("#geoloc");
-    const watchID = navigator.geolocation.watchPosition((position) => {
-        p.innerHTML = `${position.coords.latitude}, ${position.coords.longitude}`;
-    });
-    var distancia_lat_cerca = (this.target.lat - lat)/3;
-    var distancia_long_cerca = (this.target.lng - lng)/3;
-    var crd = position.coords;
-    if (distancia_lat_cerca === crd.latitude && distancia_long_cerca === crd.longitude) {
-      while ( this.target.lat != crd.latitude && this.target.lng != crd.longitude) {
+  function success(pos) {
+    var crd = pos.coords;
+    while ( Math.round(this.target.lat) === Math.round(crd.latitude) && Math.round(this.target.lng) === Math.round(crd.longitude)) {
         window.navigator.vibrate([200, 100, 200]);
       }
-      navigator.geolocation.clearWatch(watchID);
-    }
+    navigator.geolocation.clearWatch(id);
   }
-  if (navigator.geolocation) {
-    navigator.geolocation.watchPosition(success, console.error);
+  function error(err) {
+    console.error(`ERROR(${err.code}): ${err.message}`);
   }
+  id = navigator.geolocation.watchPosition(success, error);
 }
 
 
