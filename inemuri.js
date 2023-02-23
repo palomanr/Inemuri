@@ -1,3 +1,4 @@
+//SCRIPT DEL MAPA
 const mymap = L.map('sample_map').setView([40.741, -3.884], 15);
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -5,7 +6,9 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   maxZoom: 18
 }).addTo(mymap);
 
-
+//ICONO REPRESENTATIVO DEL USUARIO, EN LAS SIGUIENTES LINEAS VEMOS COMO COGEMOS LA UBICACION DEL USUARIO Y LA VAMOS
+//ANALIZANDO Y COMPARANDO SI ESTÁ CERCA DEL DESTINO. CUANDO SE ENCUENTRE CERCA DESPUES DE REDONDEAR PORQUE NUNCA SERÁ
+// UNA UBICACIÓN EXACTA COMENZARÁ A VIVBRAR HASTA QUE YA NO ESTÉ CERCA DEL DESTINO
 var personaIcon = L.icon({
   iconUrl: 'imagenes/persona.png',
   iconSize: [70, 70]
@@ -53,15 +56,6 @@ function comienzaRuta() {
   }
   id = navigator.geolocation.watchPosition(success, error);
 }
-
-
-
-
-
-
-
-
-
 
 
 

@@ -1,5 +1,5 @@
 function clickinner(target) { // Target refers to the clicked element
-    location.href='no_inicia_sesion.html';
+    location.href='inemuri.html';
 };
 function clicksabermas(target) {
     location.href='saber_mas.html';
